@@ -1,4 +1,4 @@
-//Kathy Lau, Zuhra Tukhtamisheva
+//Kathy Lau, Anton Goretsky
 //APCS1 pd5
 //HW32 -- Irrationality Stops Here
 //2015-11-17   
