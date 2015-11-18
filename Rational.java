@@ -1,3 +1,8 @@
+Kathy Lau, Zuhra Tukhtamisheva
+APCS1 pd5
+HW32 -- Irrationality Stops Here
+2015-11-17   
+
 public class Rational 
 {
     // Instance Variables
