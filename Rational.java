@@ -1,20 +1,17 @@
 //Kathy Lau, Anton Goretsky
 //APCS1 pd5
-//HW32 -- Irrationality Stops Here
-//2015-11-17   
+//HW #33: Do You Even Add, Bro?
+//2015-11-18   
 
-public class Rational 
-{
+public class Rational{
     // Instance Variables
     private int _n;
     private int _d;
 
     // Constructors
     public Rational()
-    {
-        _n = 0;
-        _d = 1;
-    }
+    {_n = 0;
+      _d = 1;    }
 
     public Rational(int n, int d)
     {
@@ -30,14 +27,10 @@ public class Rational
 
     // Accessor Methods
     public int getN()
-    {
-        return _n;
-    }
+    { return _n; }
 
     public int getD()
-    {
-        return _d;
-    }
+    {  return _d; }
 
     // Override toString() Method
     public String toString()
@@ -47,8 +40,7 @@ public class Rational
 
     // Float Value Method
     public double floatValue()
-    {
-        return ( 1.0*_n / _d ); 
+    {return (1.0*_n / _d);
     }
 
     // Multiply Method
@@ -69,19 +61,57 @@ public class Rational
         else
             System.out.println("Divide by Zero error.");
     }
+
+    public void add(Rational fraction)
+    {
+        if ( _d == fraction.getD() )
+            _n += fraction.getN();
+        else{
+          _n = ( ( _n * fraction.getD() ) + ( fraction.getN() * _d ) );
+          _d = ( _d * fraction.getD() );
+        }
+    }
+
+    public void subtract(Rational fraction)
+    {
+        if ( _d == fraction.getD() )
+            _n -= fraction.getN();
+        else {
+            _n = ( ( _n * fraction.getD() ) - ( fraction.getN() * _d ) );
+            _d = ( _d * fraction.getD() );
+        }
+    }
+
+    // Reduce Method
+    public void reduce()
+    {
+        if ( gcd() != 1 )
+        {    _n /= gcd();
+            _d /= gcd();  }
+    }
+
+    // GCD Function
+    public int gcd()
+    {
+      int a = _n;
+        int b = _d;
+        while (b!=0){
+          int temp = b;
+          b=a%b;
+          a=temp;  }
+        return a;  }
+
+    // Static GCD Method
+    public static int gcd(int n, int d)
+    {
+        Rational ans = new Rational(n, d);
+        return ans.gcd();
+    }
+
     public static void main(String[] args){
-      Rational r = new Rational(2,3); //Stores the rational number 2/3
-Rational s = new Rational(1,2); //Stores the rational number 1/2
-r.multiply(s); //Multiplies r by s, changes r to 2/6.  s remains ½
-System.out.println(r);
-r.divide(s);
-System.out.println(r);
-Rational z = new Rational(0,3);
-Rational k = new Rational(1/2);
-z.multiply(k);
-System.out.println(z);
-z.divide(k);
-System.out.println(z);
+      Rational r = new Rational(2,3);
+Rational s = new Rational(6,10);
+System.out.println(s.gcd());
 
     }
 }
