@@ -14,6 +14,7 @@ public class Rational
     public Rational(int n, int d)
     {
         this();
+        //d cannot be 0
         if (d != 0)
         {
             _n = n;
@@ -43,7 +44,7 @@ public class Rational
     // Float Value Method
     public double floatValue()
     {
-        return ( _n / (_d * 1.0) );
+        return ( _n / (_d * 1.0) ); //multiply by 1.0 to make it a double
     }
 
     // Multiply Method
@@ -69,5 +70,14 @@ public class Rational
 Rational s = new Rational(1,2); //Stores the rational number 1/2
 r.multiply(s); //Multiplies r by s, changes r to 2/6.  s remains ½
 System.out.println(r);
+r.divide(s);
+System.out.println(r);
+Rational z = new Rational(0,3);
+Rational k = new Rational(1/2);
+z.multiply(k);
+System.out.println(z);
+z.divide(k);
+System.out.println(z);
+
     }
 }
