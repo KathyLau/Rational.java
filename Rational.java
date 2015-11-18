@@ -19,14 +19,13 @@ public class Rational
     public Rational(int n, int d)
     {
         this();
-        //d cannot be 0
         if (d != 0)
         {
             _n = n;
             _d = d;
         }
         else
-            System.out.println("Invalid denominator. Fraction set to 0 / 1");
+            System.out.println("Invalid. Fraction set to 0 / 1");
     }
 
     // Accessor Methods
@@ -49,7 +48,7 @@ public class Rational
     // Float Value Method
     public double floatValue()
     {
-        return ( _n / (_d * 1.0) ); //multiply by 1.0 to make it a double
+        return ( 1.0*_n / _d ); 
     }
 
     // Multiply Method
@@ -68,7 +67,7 @@ public class Rational
             _d *= fraction.getN();
         }
         else
-            System.out.println("This cannot be done. Numerator is 0.");
+            System.out.println("Divide by Zero error.");
     }
     public static void main(String[] args){
       Rational r = new Rational(2,3); //Stores the rational number 2/3
