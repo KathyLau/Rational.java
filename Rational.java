@@ -1,7 +1,7 @@
 //Kathy Lau, Anton Goretsky
 //APCS1 pd5
 //HW #33: Do You Even Add, Bro?
-//2015-11-18   
+//2015-11-18
 
 public class Rational{
     // Instance Variables
@@ -17,13 +17,10 @@ public class Rational{
     {
         this();
         if (d != 0)
-        {
-            _n = n;
-            _d = d;
-        }
+        {   _n = n;
+            _d = d;  }
         else
-            System.out.println("Invalid. Fraction set to 0 / 1");
-    }
+            System.out.println("Invalid. Fraction set to 0 / 1");}
 
     // Accessor Methods
     public int getN()
@@ -63,55 +60,43 @@ public class Rational{
     }
 
     public void add(Rational fraction)
-    {
-        if ( _d == fraction.getD() )
-            _n += fraction.getN();
-        else{
-          _n = ( ( _n * fraction.getD() ) + ( fraction.getN() * _d ) );
+    {     _n = ( ( _n * fraction.getD() ) + ( fraction.getN() * _d ) );
           _d = ( _d * fraction.getD() );
-        }
-    }
+        reduce();}
+
 
     public void subtract(Rational fraction)
-    {
-        if ( _d == fraction.getD() )
-            _n -= fraction.getN();
-        else {
-            _n = ( ( _n * fraction.getD() ) - ( fraction.getN() * _d ) );
-            _d = ( _d * fraction.getD() );
-        }
-    }
+    { Rational newR = new Rational(-1*fraction.getN(), fraction.getD());
+      this.add(newR); }
 
     // Reduce Method
     public void reduce()
-    {
-        if ( gcd() != 1 )
-        {    _n /= gcd();
-            _d /= gcd();  }
+    {   int gcd = gcd();
+        if ( gcd != 1 )
+        {    _n /= gcd;
+            _d /= gcd;  }
     }
 
-    // GCD Function
-    public int gcd()
-    {
-      int a = _n;
-        int b = _d;
-        while (b!=0){
-          int temp = b;
-          b=a%b;
-          a=temp;  }
-        return a;  }
-
-    // Static GCD Method
+    // Static GCD Function
     public static int gcd(int n, int d)
-    {
-        Rational ans = new Rational(n, d);
-        return ans.gcd();
-    }
+    { if (d==0){return n;}
+    return gcd(d,n%d); }
 
+    // GCD Method
+    public int gcd()
+    {return gcd(_n,_d); }
+
+    public int compareTo(Rational fraction){
+      return _n * fraction.getD() -  _d* fraction.getN();
+    }
     public static void main(String[] args){
-      Rational r = new Rational(2,3);
+      Rational r = new Rational(1,3);
 Rational s = new Rational(6,10);
-System.out.println(s.gcd());
+r.add(s);
+System.out.println(r);
+r.subtract(s);
+System.out.println(r);
+System.out.println(r.compareTo(s));
 
     }
 }
