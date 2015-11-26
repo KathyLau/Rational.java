@@ -17,10 +17,13 @@ public class Rational{
     {
         this();
         if (d != 0)
-        {   _n = n;
-            _d = d;  }
+        {
+            _n = n;
+            _d = d;
+        }
         else
-            System.out.println("Invalid. Fraction set to 0 / 1");}
+            System.out.println("Invalid. Fraction set to 0 / 1");
+    }
 
     // Accessor Methods
     public int getN()
@@ -32,7 +35,7 @@ public class Rational{
     // Override toString() Method
     public String toString()
     {
-        return ( "Fraction: " + _n + " / " + _d + "\n");
+        return (  _n + " / " + _d);
     }
 
     // Float Value Method
@@ -60,43 +63,71 @@ public class Rational{
     }
 
     public void add(Rational fraction)
-    {     _n = ( ( _n * fraction.getD() ) + ( fraction.getN() * _d ) );
+    {
+        if ( _d == fraction.getD() )
+            _n += fraction.getN();
+        else{
+          _n = ( ( _n * fraction.getD() ) + ( fraction.getN() * _d ) );
           _d = ( _d * fraction.getD() );
-        reduce();}
-
+        }
+    }
 
     public void subtract(Rational fraction)
-    { Rational newR = new Rational(-1*fraction.getN(), fraction.getD());
-      this.add(newR); }
+    {
+        if ( _d == fraction.getD() )
+            _n -= fraction.getN();
+        else {
+            _n = ( ( _n * fraction.getD() ) - ( fraction.getN() * _d ) );
+            _d = ( _d * fraction.getD() );
+        }
+    }
 
     // Reduce Method
     public void reduce()
-    {   int gcd = gcd();
-        if ( gcd != 1 )
-        {    _n /= gcd;
-            _d /= gcd;  }
+    {
+      int n = gcd();
+        if ( n != 1 )
+        {    _n /= n;
+            _d /= n;  }
     }
 
-    // Static GCD Function
-    public static int gcd(int n, int d)
-    { if (d==0){return n;}
-    return gcd(d,n%d); }
-
-    // GCD Method
+    // GCD Function
     public int gcd()
-    {return gcd(_n,_d); }
+    {
+      int a = _n;
+        int b = _d;
+        while (b!=0){
+          int temp = b;
+          b=a%b;
+          a=temp;  }
+        return a;  }
 
-    public int compareTo(Rational fraction){
-      return _n * fraction.getD() -  _d* fraction.getN();
+    // Static GCD Method
+    public static int gcd(int n, int d)
+    {
+        Rational ans = new Rational(n, d);
+        return ans.gcd();
     }
-    public static void main(String[] args){
-      Rational r = new Rational(1,3);
-Rational s = new Rational(6,10);
-r.add(s);
-System.out.println(r);
-r.subtract(s);
-System.out.println(r);
-System.out.println(r.compareTo(s));
 
+    // Compare To Method
+public boolean compareTo(Object other)
+  {this.reduce();
+    if (other instanceof Rational){
+        ((Rational) other).reduce();}
+    else
+    {throw new ClassCastException("Requires an instance of the 'Rational' class.");}
+    return this.toString().equals(other.toString());}
+
+// Equals Method
+public boolean equals(Object other)
+{
+    return ( (this == other) || compareTo(other));
+}
+
+    public static void main(String[] args){
+      Rational r = new Rational(2,3);
+    //  Tile s = new Tile("hi");
+Rational s = new Rational(6,9);
+System.out.println(r.equals(s));
     }
 }
